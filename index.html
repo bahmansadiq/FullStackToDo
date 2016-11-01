@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gulp Demo</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/app/style/styles.css">
+    <!-- endinject -->
+</head>
+
+<body class="ng-cloak" ng-controller="ToDoController as vm">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="panel panel-primary col-md-5">
+                <div class="panel-heading row">
+                    <p> Add Todo Item</p>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <label> Text</label>
+                        <input type="text" ng-model="vm.addItem" class="form-control">
+                    </div>
+                    <div>
+                        <label>Priority</label>
+                        <select type="select" ng-model="vm.selectedPriority" class="dropdown col-md-4 form-control">
+                            <option value="1">High priority</option>
+                            <option value="2">Medium priority</option>
+                            <option value="3">Low priority</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-footer row">
+                    <button type="button" class="btn btn-success glyphicon glyphicon-ok" vm.addItem='' ng-click="vm.AddToDoList()">Update task</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group col-md-6">
+                <button type="submit" value="" ng-click="priority='selectedPriorit'" class="btn btn-primary col-md-4">Order by highest priority</button>
+                <button type="submit" value="" ng-click="priority='-
+			selectedPriority'" class="btn btn-primary col-md-4">Order by lowest Priority</button>
+                <button type="submit" value="" ng-click="priority='addItem'" class="btn btn-primary col-md-4">Order alphabetically</button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th> Name</th>
+                        <th> Priority</th>
+                    </tr>
+                    <tr ng-repeat="item in vm.todoCopy | orderBy: priority" ng-class="{'bg-danger' : item.selectedPriority==1, 'bg-warning' :item.selectedPriority==2, 'bg-info' : item.selectedPriority==3}">
+                        <td>
+                            <p>{{item.toDoEntryId}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.addItem}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.selectedPriority}}</p>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="vm.deleteToDo(item.toDoEntryId)"></button>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning glyphicon glyphicon-pencil" ng-click="vm.populateTodDoForm(item)"></button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--Modal script start-->
+    <!--Modal script ends-->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- inject:js -->
+    <script src="/app/app.js"></script>
+    <script src="/app/ToDoController.js"></script>
+    <script src="/app/ToDoFactory.js"></script>
+    <!-- endinject -->
+</body>
+
+</html>
